@@ -4,6 +4,8 @@ const globalErrorHandler = require('./controllers/error');
 const AppError = require('./utils/appError');
 const preorderRouter = require('./routes/preorder');
 const statusRouter = require('./routes/status');
+const authRouter = require('./routes/auth');
+const authController = require('./controllers/auth');
 
 // Initialize express app
 const app = express();
@@ -14,11 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
-app.get('/ping', (req, res, next) => {
-  res.status(200).json({ data: 'pong' });
-});
-app.use('/preorders', preorderRouter);
-app.use('/statuses', statusRouter);
+app.use('/auth', authRouter);
+app.use('/preorders', authController.protect, preorderRouter);
+app.use('/statuses', authController.protect, statusRouter);
 
 // 404 Error
 app.all('*', (req, res, next) => {

@@ -5,6 +5,12 @@ const PreorderSchema = new mongoose.Schema({
   phoneNumber: {
     type: String,
   },
+  email: {
+    type: String,
+  },
+  totalPrice: {
+    type: Number,
+  },
   quantity: {
     type: Number,
     min: 1,
