@@ -16,6 +16,7 @@ const PreorderSchema = new mongoose.Schema({
     min: 1,
   },
   comment: String,
+  bookType: String,
   isPreorder: Boolean,
   status: {
     type: mongoose.Schema.ObjectId,
