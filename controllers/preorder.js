@@ -1,6 +1,7 @@
 const Preorder = require('../models/preorder');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const Telegram = require('../utils/telegram');
 
 exports.getAll = catchAsync(async (req, res, next) => {
   const preorders = await Preorder.find();
@@ -31,6 +32,18 @@ exports.create = catchAsync(async (req, res, next) => {
     status: 'success',
     data: preorder,
   });
+
+  // Send preorder to Telegram channel
+  Telegram.sendOrder(`
+Янги буюртма:
+
+Исм: ${preorder.fullName}
+Телефон: ${preorder.phoneNumber}
+Эмаил: ${preorder.email}
+Китоб тури: ${preorder.bookType}
+${preorder.comment ? 'Хабар: ' + preorder.comment : ''}
+Нархи: ${preorder.totalPrice}
+  `);
 });
 
 exports.update = catchAsync(async (req, res, next) => {
