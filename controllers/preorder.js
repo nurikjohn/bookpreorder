@@ -39,9 +39,9 @@ exports.create = catchAsync(async (req, res, next) => {
 
 Исм: ${preorder.fullName}
 Телефон: ${preorder.phoneNumber}
-Эмаил: ${preorder.email}
+Эмаил: ${preorder.email ? preorder.email : '---'}
 Китоб тури: ${preorder.bookType}
-${preorder.comment ? 'Хабар: ' + preorder.comment : ''}
+Хабар: ${preorder.comment ? preorder.comment : '---'}
 Нархи: ${preorder.totalPrice}
   `);
 });
